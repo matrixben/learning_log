@@ -1,0 +1,23 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+    <h2>Log in your account.</h2>
+{% endblock header %}
+
+{% block content %}
+
+    <!-- django-bootstrap3会自动管理表单错误，所以删除了错误判断语句 -->
+
+    <form action="{% url 'users:login' %}" method="POST" class="form">
+        {% csrf_token %}
+
+        {% bootstrap_form form %}
+
+        <button name="submit">log in</button>
+        <!-- next表明在登录成功后重定向到指定页面，即主页 -->
+        <input type="hidden" name="next"
+               value="{% url 'learning_logs:index' %}"/>
+    </form>
+
+{% endblock content %}
