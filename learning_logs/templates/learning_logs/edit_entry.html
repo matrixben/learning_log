@@ -1,11 +1,12 @@
 {% extends "learning_logs/base.html" %}
 
-{% block content %}
-
-    <p>
-        Edit the entry for topic
+{% block header %}
+    <h2>Edit the entry for topic
         <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic.text }}</a>
-    </p>
+    </h2>
+{% endblock header %}
+
+{% block content %}
 
     <form action="{% url 'learning_logs:edit_entry' entry.id %}"
           method="POST">
