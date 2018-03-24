@@ -25,9 +25,9 @@ with open('/etc/secret_key_django.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','193.112.58.252']
 
 
 # Application definition
