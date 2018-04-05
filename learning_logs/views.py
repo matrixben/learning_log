@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 
 from .form import TopicForm, EntryForm
 from .models import Topic, Entry
@@ -90,7 +91,28 @@ def edit_entry(request, entry_id):
                   )
 
 
+@login_required
+def del_entry(request, entry_id):
+    """删除特定条目"""
+    entry_obj = Entry.objects.get(id=entry_id)
+    topic_obj = entry_obj.topic
+    check_topic_owner(topic_obj.owner, request.user)
+
+    entry_obj.delete()
+    return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic_obj.id]))
+
+
 def check_topic_owner(owner, current_user):
     """确认请求的主题属于当前用户"""
     if owner != current_user:
         raise Http404
+
+
+@login_required
+def api_topics(request):
+    """自己实现的api,返回主题名称的列表的json格式"""
+    topics_obj = Topic.objects.filter(owner=request.user).order_by('date_added')
+    # django自带的序列化方法返回过多的数据，考虑django-rest-framework的
+    json_obj = serializers.serialize("json", topics_obj)
+    return HttpResponse(json_obj, content_type='application/json')
+

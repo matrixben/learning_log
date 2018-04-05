@@ -6,17 +6,36 @@
 
 {% block content %}
     <div>
-        <a href="{% url 'learning_logs:new_entry' topic.id%}">add a new entry</a>
+        <button type="button" class="btn btn-success btn-sm"
+                onclick="location='{% url 'learning_logs:new_entry' topic.id%}'">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            New entry
+        </button>
     </div>
+    <br>
 
     {% for entry in entries %}
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
+
             <div class="panel-heading">
-                <h4>
+                <div class="panel-title">
                     {{ entry.date_added | date:'Y-M-d H:i' }}
-                    <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a></small>
-                </h4>
+
+                    <button type="button" class="btn btn-default"
+                            onclick="location='{% url 'learning_logs:edit_entry' entry.id %}'">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Edit
+                    </button>
+
+                    <button type="button" class="btn btn-default"
+                            onclick="go_delete('{% url 'learning_logs:del_entry' entry.id %}')">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Del
+                    </button>
+
+                </div>
             </div>
+
             <div class="panel-body">
                 <p>{{ entry.text }}</p>
             </div>
@@ -25,4 +44,12 @@
         <div>No entries have been added yet.</div>
     {% endfor %}
 
+    <script>
+        function go_delete(del_url){
+            var is_del = confirm("Do you really want to delete this entry?");
+            if(is_del){
+                location = del_url;
+            }
+        }
+    </script>
 {% endblock content %}

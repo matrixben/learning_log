@@ -5,15 +5,23 @@
 {% endblock header %}
 
 {% block content %}
-    <ul>
-        {% for topic in topics %}
-        <li>
-            <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic.text }}</a>
-        </li>
-        {% empty %}
-        <li>No topics have been added yet.</li>
-        {% endfor %}
-    </ul>
+    <div>
+        <button type="button" class="btn btn-success btn-sm"
+                onclick="location='{% url 'learning_logs:new_topic' %}'">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            New topic
+        </button>
+    </div>
+    <br>
 
-    <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
+    <div class="list-group">
+        {% for topic in topics %}
+        <a class="list-group-item" href="{% url 'learning_logs:topic' topic.id %}">
+            {{ topic.text }}
+        </a>
+        {% empty %}
+        <a class="list-group-item" href="#">No topics have been added yet.</a>
+        {% endfor %}
+    </div>
+
 {% endblock content %}

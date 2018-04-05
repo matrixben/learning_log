@@ -7,14 +7,23 @@
     <title>Learning Logs</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    {% load staticfiles %}
+
+    <script src="{% static 'learning_logs/javascript/codemirror.js' %}"></script>
+    <script src="{% static 'learning_logs/javascript/python.js' %}"></script>
+    <script src="{% static 'learning_logs/javascript/matchbrackets.js' %}"></script>
+    <script src="{% static 'learning_logs/javascript/closebrackets.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'learning_logs/css/codemirror.css' %}"/>
+
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed"
                         data-toggle="collapse" data-target="#navbar"
                         aria-expanded="false" aria-controls="navbar">
+                    <i class="glyphicon glyphicon-align-justify"></i>
                 </button>
                 <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
                     Learning Log
@@ -28,11 +37,20 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                        <li><a>{{ user.username }}</a></li>
-                        <li><a href="{% url 'users:logout' %}">Log out</a></li>
+                        <li><a><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+                        <li><a href="{% url 'users:logout' %}">
+                            <i class="glyphicon glyphicon-log-out"></i> Log out
+                            </a>
+                        </li>
                     {% else %}
-                        <li><a href="{% url 'users:login' %}">Log in</a></li>
-                        <li><a href="{% url 'users:register' %}">Register</a></li>
+                        <li><a href="{% url 'users:login' %}">
+                            <i class="glyphicon glyphicon-log-in"></i> Log in
+                            </a>
+                        </li>
+                        <li><a href="{% url 'users:register' %}">
+                            <i class="glyphicon glyphicon-edit"></i> Register
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>

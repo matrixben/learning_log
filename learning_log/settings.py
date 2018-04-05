@@ -127,7 +127,7 @@ STATIC_URL = '/static/'
 # 未登录时重定向到此页面
 LOGIN_URL = '/users/login/'
 
-# django-bootstrap3的设置
+# django-bootstrap3的设置,因为bootstrap3.js依赖jquery.js
 BOOTSTRAP3 = {
     'include_jquery': True,
 }
