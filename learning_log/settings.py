@@ -25,9 +25,10 @@ with open('/etc/secret_key_django.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# 为False时不会自动加载静态文件
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','193.112.58.252']
+ALLOWED_HOSTS = ['localhost', '193.112.58.252']
 
 
 # Application definition
@@ -123,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 未登录时重定向到此页面
 LOGIN_URL = '/users/login/'
